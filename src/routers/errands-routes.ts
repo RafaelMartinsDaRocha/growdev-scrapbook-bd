@@ -10,7 +10,7 @@ export default class ErrandsRoutes {
         routes.get('/errands/:id', controller.show);
         routes.post('/errands', controller.store);
         routes.put('/errands/:id', controller.update);
-        routes.delete('/errands/;id', controller.delete);
+        routes.delete('/errands/:id', controller.delete);
 
         return routes;
     } 

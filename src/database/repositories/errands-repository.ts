@@ -16,23 +16,24 @@ export class ErrandsRepository {
      async create(errandDTO: ErrandsDTO) {
          const errand = await new ErrandsEntity(errandDTO.description, errandDTO.detailing);
 
-         errand.save;
+         errand.save();
 
          return errand;
      }
 
      async update(errandDTO: ErrandsDTO) {
-         const errand = await new ErrandsEntity(errandDTO.description, errandDTO.detailing);
+         const errand = await ErrandsEntity.findOne(errandDTO.id);
 
          if (errand) {
              errand.description = errandDTO.description;
-             errand.detailing = errandDTO.detailing
+             errand.detailing = errandDTO.detailing;
+             await errand.save();
          }
 
          return errand;
      }
 
-     async delete(errandID: number) {
-         await ErrandsEntity.delete(errandID);
+     async delete(id: number) {
+         await ErrandsEntity.delete(id);
      }
 }

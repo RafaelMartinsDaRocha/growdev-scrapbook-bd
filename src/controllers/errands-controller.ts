@@ -7,6 +7,13 @@ export default class ErrandsController {
         const errands = await service.find();
 
         return response.json(errands)
+        // return response.json(errands.map(errand => {
+        //     return {
+        //         id: errand.id,
+        //         description: errand.description,
+        //         detailing: errand.detailing
+        //     }
+        // })).status(200);
     }
 
     async show(request: Request, response: Response) {
@@ -15,6 +22,11 @@ export default class ErrandsController {
         const errand = await service.findOne(parseInt(id));
 
         return response.json(errand)
+        // return response.json({
+        //     id: errand?.id,
+        //     description: errand?.description,
+        //     detailing: errand?.detailing
+        // }).status(200);
     }
 
     async store(request: Request, response: Response) {

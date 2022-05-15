@@ -11,7 +11,6 @@ export class ErrandsService {
 
     async findOne(id: number) {
         const repository = new ErrandsRepository();
-        
         const errand = await repository.findOne(id);
 
         return errand;
@@ -31,8 +30,8 @@ export class ErrandsService {
         return errand;
     }
 
-    async delete(errandID: number) {
+    async delete(id: number) {
         const repository = new ErrandsRepository();
-        await repository.delete(errandID);
+        await repository.delete(id);
     }
 }

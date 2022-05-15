@@ -18,7 +18,7 @@ export default class Database {
         try {
             return await createConnection();
         } catch (error) {
-            throw new Error('Erro ao conectar no banco de dados');
+            throw new Error('Erro ao conectar no banco');
         }
     }
 }

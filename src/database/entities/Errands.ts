@@ -9,7 +9,7 @@ export class ErrandsEntity extends BaseEntity {
     description: string;
 
     @Column()
-        detailing: string;
+    detailing: string;
     
     constructor(description: string, detailing: string) {
         super();
