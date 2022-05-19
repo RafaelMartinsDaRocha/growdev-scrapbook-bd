@@ -6,7 +6,7 @@ module.exports = {
     logging: false,
     extra: {
         ssl: {
-            rejectUnauthorized: true
+            rejectUnauthorized: false
         }
     },
     migrations: [
