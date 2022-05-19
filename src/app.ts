@@ -31,11 +31,11 @@ export default class Application {
     }
 
     private middlewares() {
-        // this.#express.use(logMiddleware);
+    
     }
 
     private errors() {
-        //TODO
+    
     }
 
     private routers() {
