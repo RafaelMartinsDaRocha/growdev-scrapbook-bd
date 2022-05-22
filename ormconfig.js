@@ -10,10 +10,10 @@ module.exports = {
         }
     },
     migrations: [
-        'dist/database/migrations/**/*'
+        'dist/database/migrations/**/*.js'
     ],
     entities: [
-        'dist/database/entities/**/*'
+        'dist/database/entities/**/*.js'
     ],
     cli: {
         entitiesDir: 'dist/database/entities',
