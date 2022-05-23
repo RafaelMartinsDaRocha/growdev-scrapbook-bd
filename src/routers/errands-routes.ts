@@ -7,7 +7,6 @@ export default class ErrandsRoutes {
         const controller = new ErrandsController();
 
         routes.get('/errands', controller.index);
-        routes.get('/errands/:id', controller.show);
         routes.post('/errands', controller.store);
         routes.put('/errands/:id', controller.update);
         routes.delete('/errands/:id', controller.delete);

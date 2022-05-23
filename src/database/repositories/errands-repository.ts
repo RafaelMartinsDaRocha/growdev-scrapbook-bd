@@ -7,12 +7,7 @@ export class ErrandsRepository {
 
         return errands;
     }
-     async findOne(id: number) {
-         const errand = await ErrandsEntity.findOne(id);
-
-         return errand;
-     }
-
+    
      async create(errandDTO: ErrandsDTO) {
          const errand = await new ErrandsEntity(errandDTO.description, errandDTO.detailing);
 

@@ -12,9 +12,7 @@ export default class Application {
 
     async init() {
         this.config();
-        // this.middlewares();
         this.routers();
-        // this.errors();
         await this.database();
     }
 
@@ -28,14 +26,6 @@ export default class Application {
         this.#express.use(express.json());
         this.#express.use(express.urlencoded({ extended: false }));
         this.#express.use(cors());
-    }
-
-    private middlewares() {
-    
-    }
-
-    private errors() {
-    
     }
 
     private routers() {

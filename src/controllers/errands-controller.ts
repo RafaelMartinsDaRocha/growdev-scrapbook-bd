@@ -7,26 +7,6 @@ export default class ErrandsController {
         const errands = await service.find();
 
         return response.json(errands)
-        // return response.json(errands.map(errand => {
-        //     return {
-        //         id: errand.id,
-        //         description: errand.description,
-        //         detailing: errand.detailing
-        //     }
-        // })).status(200);
-    }
-
-    async show(request: Request, response: Response) {
-        const { id } = request.params;
-        const service = new ErrandsService();
-        const errand = await service.findOne(parseInt(id));
-
-        return response.json(errand)
-        // return response.json({
-        //     id: errand?.id,
-        //     description: errand?.description,
-        //     detailing: errand?.detailing
-        // }).status(200);
     }
 
     async store(request: Request, response: Response) {
@@ -65,6 +45,6 @@ export default class ErrandsController {
         const service = new ErrandsService();
         await service.delete(parseInt(id));
 
-        return response.sendStatus(204); //TODO
+        return response.sendStatus(204);
     }
 };
