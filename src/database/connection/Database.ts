@@ -5,6 +5,13 @@ export default class Database {
 
     private constructor() {}
 
+    private async openConnection() {
+        try {
+            return await createConnection();
+        } catch (error) {
+            throw new Error('Erro ao conectar no banco de dados');
+        }
+    }
     static async getInstance() {
         if (!Database.instance) {
             const database = new Database();
@@ -14,11 +21,4 @@ export default class Database {
         return Database.instance;
     }
 
-    private async openConnection() {
-        try {
-            return await createConnection();
-        } catch (error) {
-            throw new Error('Erro ao conectar no banco de dados');
-        }
-    }
 }
