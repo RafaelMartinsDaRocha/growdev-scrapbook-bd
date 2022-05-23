@@ -9,13 +9,6 @@ export class ErrandsService {
         return errand;
     }
 
-    async findOne(id: number) {
-        const repository = new ErrandsRepository();
-        const errand = await repository.findOne(id);
-
-        return errand;
-    }
-
     async create(errandDTO: ErrandsDTO) {
         const repository = new ErrandsRepository();
         const errand = await repository.create(errandDTO);
