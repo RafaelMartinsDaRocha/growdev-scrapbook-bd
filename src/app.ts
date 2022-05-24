@@ -10,10 +10,10 @@ export default class Application {
         this.#express = express();        
     }
 
-    init() {
+    async init() {
         this.config();
         this.routers();
-        this.database();
+        await this.database();
     }
 
     start(port: number) {
