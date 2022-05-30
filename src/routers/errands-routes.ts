@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ErrandsController from '../controllers/errands-controller';
+import { validateFields, validateId, verifyId } from '../middlewares'
 
 export default class ErrandsRoutes {
     initialize() {
@@ -7,9 +8,9 @@ export default class ErrandsRoutes {
         const controller = new ErrandsController();
 
         routes.get('/errands', controller.index);
-        routes.post('/errands', controller.store);
-        routes.put('/errands/:id', controller.update);
-        routes.delete('/errands/:id', controller.delete);
+        routes.post('/errands', [validateFields, verifyId], controller.store);
+        routes.put('/errands/:id', [validateFields, validateId], controller.update);
+        routes.delete('/errands/:id', [validateId], controller.delete);
 
         return routes;
     } 

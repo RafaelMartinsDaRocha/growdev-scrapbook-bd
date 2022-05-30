@@ -1,10 +1,10 @@
-import { ErrandsEntity } from "../entities";
-import { ErrandsDTO } from "../../dto/errands-dto";
+import { ErrandsEntity } from '../entities';
+import { ErrandsDTO } from '../../dto'
 
 export class ErrandsRepository {
     async find() {
         const errands = await ErrandsEntity.find()
-
+        
         return errands;
     }
     

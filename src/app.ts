@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import Database from './database/connection/Database';
+import Database from './database/connections/Database';
 import ErrandsRoutes from './routers/errands-routes';
+import { HttpError } from './error'
 
 export default class Application {
     readonly #express: express.Application;
@@ -13,6 +14,7 @@ export default class Application {
     async init() {
         this.config();
         this.routers();
+        this.errors();
         await this.database();
     }
 
@@ -31,6 +33,14 @@ export default class Application {
     private routers() {
         const errandsRoutes = new ErrandsRoutes().initialize();
         this.#express.use(errandsRoutes);
+    }
+
+    private errors() {
+        this.#express.use((error: HttpError, request: Request, response: Response, next: NextFunction) => {
+            return response.status(error.status).json({
+                mensagem: error.message
+            })
+        })
     }
 
     private async database() {
