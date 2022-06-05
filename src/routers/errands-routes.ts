@@ -3,7 +3,7 @@ import ErrandsController from '../controllers/errands-controller';
 import { validateFields, validateId, verifyId } from '../middlewares'
 
 export default class ErrandsRoutes {
-    initialize() {
+    init() {
         const routes = Router();
         const controller = new ErrandsController();
 

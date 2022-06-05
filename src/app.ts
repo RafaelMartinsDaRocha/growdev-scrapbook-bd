@@ -1,8 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import Database from './database/connections/Database';
-import ErrandsRoutes from './routers/errands-routes';
 import { HttpError } from './error'
+import path from 'path';
+import fs from 'fs';
+import { HttpRouter } from './contracts'
 
 export default class Application {
     readonly #express: express.Application;
@@ -31,8 +33,18 @@ export default class Application {
     }
 
     private routers() {
-        const errandsRoutes = new ErrandsRoutes().initialize();
-        this.#express.use(errandsRoutes);
+        // const errandsRoutes = new ErrandsRoutes().initialize();
+        // this.#express.use(errandsRoutes);
+        const routersPath = path.resolve(__dirname, 'routers');
+
+        fs.readdirSync(routersPath).forEach(filename => {
+            import(path.resolve(routersPath, filename)).then(file => {
+                const instance = new file.default() as HttpRouter;
+
+                this.#express.use(instance.init())
+            });
+
+        })
     }
 
     private errors() {

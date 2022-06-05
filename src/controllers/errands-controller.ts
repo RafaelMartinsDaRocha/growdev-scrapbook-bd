@@ -1,12 +1,19 @@
 import { Request, Response } from 'express';
 import { ErrandsService } from '../services';
+import { HttpError } from '../error'
+import { HttpInternalErrorCode, defaultErrorMessage } from '../constants'
 
 export default class ErrandsController {
     async index(request: Request, response: Response) {
         const service = new ErrandsService();
-        const errands = await service.find();
 
-        return response.json(errands)
+        try {
+            const errands = await service.find();
+    
+            return response.json(errands)
+        } catch (error) { 
+            throw new HttpError(defaultErrorMessage, HttpInternalErrorCode);
+        }
     }
 
     async store(request: Request, response: Response) {
@@ -21,9 +28,7 @@ export default class ErrandsController {
 
             return response.json(errand);
         } catch (error) { 
-            throw response.json({ //TODO
-                mensage: 'Ocorreu um erro, tente novamente mais tarde'
-            })
+            throw new HttpError(defaultErrorMessage, HttpInternalErrorCode);
         }
     }
 
@@ -31,20 +36,30 @@ export default class ErrandsController {
         const { id } = request.params;
         const { description, detailing } = request.body;
         const service = new ErrandsService();
-        const errand = await service.update({
-            id: parseInt(id),
-            description,
-            detailing
-        })
 
-        return response.json(errand)
+        try {
+            const errand = await service.update({
+                id: parseInt(id),
+                description,
+                detailing
+            })
+    
+            return response.json(errand)
+        } catch {
+            throw new HttpError(defaultErrorMessage, HttpInternalErrorCode);
+        }
     }
 
     async delete(request: Request, response: Response) {
         const { id } = request.params;
         const service = new ErrandsService();
-        await service.delete(parseInt(id));
 
-        return response.sendStatus(204);
+        try {
+            await service.delete(parseInt(id));
+    
+            return response.sendStatus(204);
+        } catch {
+            throw new HttpError(defaultErrorMessage, HttpInternalErrorCode);
+        }
     }
-};
+}
