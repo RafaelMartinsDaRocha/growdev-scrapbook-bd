@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import Database from './database/connections/Database';
+import Redis from './database/connections/Redis';
 import { HttpError } from './error'
 import path from 'path';
 import fs from 'fs';
@@ -57,5 +58,6 @@ export default class Application {
 
     private async database() {
         await Database.getInstance();
+        Redis.getInstance();
     }
 };
