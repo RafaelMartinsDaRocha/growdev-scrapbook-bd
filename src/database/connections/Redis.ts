@@ -22,7 +22,6 @@ export default class Redis {
                     rejectUnauthorized: false
                 }
             });
-
         } catch (error) {
             throw new Error(`Erro ao conectar no Redis: ${error}`);
         }

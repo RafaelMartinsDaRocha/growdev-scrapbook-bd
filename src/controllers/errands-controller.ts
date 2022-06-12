@@ -57,7 +57,9 @@ export default class ErrandsController {
                 description,
                 detailing
             })
-            await cacheRepository.set(`errand:${id}`, errand);
+            // await cacheRepository.set(`errand:${id}`, errand);
+            await cacheRepository.del(`errand:${id}`);
+            await cacheRepository.del('errands:all');
 
             return response.json(errand)
         } catch {
