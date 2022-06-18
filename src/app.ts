@@ -34,8 +34,6 @@ export default class Application {
     }
 
     private routers() {
-        // const errandsRoutes = new ErrandsRoutes().initialize();
-        // this.#express.use(errandsRoutes);
         const routersPath = path.resolve(__dirname, 'routers');
 
         fs.readdirSync(routersPath).forEach(filename => {
@@ -44,7 +42,6 @@ export default class Application {
 
                 this.#express.use(instance.init())
             });
-
         })
     }
 

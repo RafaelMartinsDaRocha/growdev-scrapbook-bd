@@ -1,24 +1,24 @@
 import { Request, Response } from 'express';
-import { ErrandsService } from '../services';
 import { HttpError } from '../error'
 import { HttpInternalErrorCode, defaultErrorMessage } from '../constants'
-import { CacheRepository } from '../database/repositories';
+import { ErrandsServiceInterface } from '../contracts/services';
+import { CacheRepositoryInterface } from '../contracts/repositories';
 
 export default class ErrandsController {
-    async index(request: Request, response: Response) {
-        const service = new ErrandsService();
-        const cacheRepository = new CacheRepository();
+    constructor(private service: ErrandsServiceInterface, 
+                private cacheRepository: CacheRepositoryInterface) {}
 
+    index = async (request: Request, response: Response) => {
         try {
-            const cache = await cacheRepository.get('errands:all');
+            const cache = await this.cacheRepository.get('errands:all');
 
             if (cache) {
                 return response.json(cache)
             }
 
-            const errands = await service.find();
+            const errands = await this.service.find();
 
-            await cacheRepository.set('errands:all', errands)
+            await this.cacheRepository.set('errands:all', errands)
     
             return response.json(errands)
         } catch (error) { 
@@ -26,18 +26,16 @@ export default class ErrandsController {
         }
     }
 
-    async store(request: Request, response: Response) {
+    store = async (request: Request, response: Response) => {
         const { description, detailing } = request.body;
-        const service = new ErrandsService();
-        const cacheRepository = new CacheRepository();
 
         try {
-            const errand = await service.create({
+            const errand = await this.service.create({
                 description,
                 detailing
             });
 
-            await cacheRepository.del('errands:all');
+            await this.cacheRepository.del('errands:all');
 
             return response.json(errand);
         } catch (error) { 
@@ -45,21 +43,19 @@ export default class ErrandsController {
         }
     }
 
-    async update(request: Request, response: Response) {
+    update = async (request: Request, response: Response) => {
         const { id } = request.params;
         const { description, detailing } = request.body;
-        const service = new ErrandsService();
-        const cacheRepository = new CacheRepository();
 
         try {
-            const errand = await service.update({
+            const errand = await this.service.update({
                 id: parseInt(id),
                 description,
                 detailing
             })
-            // await cacheRepository.set(`errand:${id}`, errand);
-            await cacheRepository.del(`errand:${id}`);
-            await cacheRepository.del('errands:all');
+
+            await this.cacheRepository.del(`errand:${id}`);
+            await this.cacheRepository.del('errands:all');
 
             return response.json(errand)
         } catch {
@@ -67,16 +63,14 @@ export default class ErrandsController {
         }
     }
 
-    async delete(request: Request, response: Response) {
+    delete = async (request: Request, response: Response) => {
         const { id } = request.params;
-        const service = new ErrandsService();
-        const cacheRepository = new CacheRepository();
 
         try {
-            await service.delete(parseInt(id));
+            await this.service.delete(parseInt(id));
 
-            await cacheRepository.del(`errand:${id}`);
-            await cacheRepository.del('errands:all');
+            await this.cacheRepository.del(`errand:${id}`);
+            await this.cacheRepository.del('errands:all');
     
             return response.sendStatus(204);
         } catch {

@@ -2,7 +2,7 @@ import IORedis from 'ioredis';
 import Redis from '../connections/Redis';
 
 export class CacheRepository {
-    private readonly redis: IORedis.Redis; //tirei o sinal de ! que tinha depois de redis
+    private readonly redis: IORedis.Redis;
 
     constructor() {
         this.redis = Redis.getInstance();
@@ -28,4 +28,3 @@ export class CacheRepository {
         return result !== 0;
     }
 }
-
