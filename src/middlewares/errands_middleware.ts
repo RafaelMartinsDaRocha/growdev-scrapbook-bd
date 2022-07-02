@@ -15,8 +15,9 @@ export async function verifyId (request: Request, response: Response, next: Next
 
 export const validateFields = (request: Request, response: Response, next: NextFunction) => {
     const { description, detailing } = request.body;
-
-    if (!description || !detailing) {
+    
+    if (description.length < 3 || description.length > 255 || detailing.length < 3 || detailing.length > 255 ) {
+        
         return response.status(400).json({
             mensagem: 'Por favor, preeencha os campos descrição e detalhes corretamente'
         })

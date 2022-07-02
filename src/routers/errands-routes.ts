@@ -3,8 +3,9 @@ import ErrandsController from '../controllers/errands-controller';
 import { validateFields, validateId, verifyId } from '../middlewares'
 import { ErrandsService } from '../services';
 import { CacheRepository } from '../database/repositories'
+import { HttpRouter } from '../contracts'
 
-export default class ErrandsRoutes {
+export default class ErrandsRoutes implements HttpRouter {
     init() {
         const routes = Router();
         const service = new ErrandsService();

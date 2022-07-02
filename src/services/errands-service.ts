@@ -4,23 +4,38 @@ import { ErrandsDTO } from "../dto/errands-dto";
 export class ErrandsService {
     async find() {
         const repository = new ErrandsRepository();
-        const errand = await repository.find();
+        const errands = await repository.find();
 
-        return errand;
+        return errands.map(errand => {
+            return {
+                id: errand.id,
+                description: errand.description,
+                detailing: errand.detailing
+            }
+        });
     }
 
     async create(errandDTO: ErrandsDTO) {
         const repository = new ErrandsRepository();
         const errand = await repository.create(errandDTO);
-
-        return errand;
+        
+        return {
+            id: errand.id,
+            description: errand.description,
+            detailing: errand.detailing
+        }
+        // return errand;
     }
 
     async update(errandDTO: ErrandsDTO) {
         const repository = new ErrandsRepository();
         const errand = await repository.update(errandDTO);
-
-        return errand;
+        
+        return {
+            id: errand?.id,
+            description: errand?.description,
+            detailing: errand?.detailing
+        }
     }
 
     async delete(id: number) {
