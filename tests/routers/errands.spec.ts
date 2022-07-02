@@ -17,7 +17,7 @@ describe('Errands Router', () => {
     describe('GET / errands', () => {
         it('should return 200...', async () => {
             const dto = [{
-                id: 66,
+                id: 71,
                 description: 'any desc',
                 detailing: 'any det'
             }]
@@ -66,7 +66,7 @@ describe('Errands Router', () => {
     describe('PUT / errands /:id', () => {
         it('should return 200...', async () => {
             const dto = {
-                id: 66,
+                id: 71,
                 description: 'any desc',
                 detailing: 'any det'
             }
@@ -83,7 +83,7 @@ describe('Errands Router', () => {
     describe('DELETE / errands / :id', () => {
         it('should return 204...', async () => {
             
-            await request(application.server).delete(`/errands/${66}`).expect(204)
+            await request(application.server).delete(`/errands/${71}`).expect(204)
         })
     })
 })

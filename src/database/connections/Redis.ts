@@ -17,8 +17,12 @@ export default class Redis {
 
     private openConnection() {
         try {
-            return new IORedis(process.env.REDIS_URL);
-            
+            return new IORedis(process.env.REDIS_URL, {
+                tls: {
+                    rejectUnauthorized: false
+                }                
+            });
+
         } catch (error) {
             throw new Error(`Erro ao conectar no Redis: ${error}`);
         }
